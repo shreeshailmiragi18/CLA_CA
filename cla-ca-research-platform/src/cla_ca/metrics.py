@@ -13,6 +13,8 @@ def calculate_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict:
     precision = tp / (tp + fp) if (tp + fp) > 0 else 0
     recall = tp / (tp + fn) if (tp + fn) > 0 else 0
     f1 = 2 * recall * precision / (recall + precision) if (recall + precision) > 0 else 0
+    specificity = tn / (tn + fp) if (tn + fp) > 0 else 0
+    fpr = fp / (fp + tn) if (fp + tn) > 0 else 0
 
     # MCC
     denom = np.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
@@ -27,5 +29,8 @@ def calculate_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict:
         'recall': recall,
         'f1': f1,
         'mcc': mcc,
-        'g_mean': g_mean
+        'g_mean': g_mean,
+        'specificity': specificity,
+        'fpr': fpr,
+        'balanced_accuracy': (recall + specificity) / 2
     }

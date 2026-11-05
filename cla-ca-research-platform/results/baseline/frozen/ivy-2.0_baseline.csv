@@ -1,0 +1,2 @@
+dataset,f1,mcc,recall,precision,g_mean,retained_features,total_features
+ivy-2.0,0.4329896907216495,0.3528865587570647,0.525,0.3684210526315789,0.4397966037062802,17,20

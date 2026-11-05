@@ -1,0 +1,47 @@
+{
+  "phase": "Phase 6: Automated Visualization",
+  "generated_at": "2026-10-24T13:22:25.804028",
+  "total_plots": 8,
+  "plots": [
+    {
+      "name": "F1 Score Heatmap",
+      "file": "f1_heatmap.png",
+      "description": "Heatmap of F1 scores across datasets and threshold methods"
+    },
+    {
+      "name": "F1 Improvement Distribution",
+      "file": "f1_improvement_boxplot.png",
+      "description": "Box plots showing distribution of F1 improvements vs baseline"
+    },
+    {
+      "name": "Win/Loss/Tie Analysis",
+      "file": "win_loss_tie_analysis.png",
+      "description": "Bar chart of wins/losses/ties per method"
+    },
+    {
+      "name": "Recall-Precision Trade-off",
+      "file": "recall_precision_tradeoff.png",
+      "description": "Scatter plot showing recall vs precision trade-offs"
+    },
+    {
+      "name": "F1 vs MCC Correlation",
+      "file": "f1_vs_mcc.png",
+      "description": "Scatter plot of F1 vs MCC correlation"
+    },
+    {
+      "name": "Per-Dataset Comparison",
+      "file": "per_dataset_comparison.png",
+      "description": "Bar charts for top 5 most variable datasets"
+    },
+    {
+      "name": "Threshold Distribution",
+      "file": "threshold_distribution.png",
+      "description": "Histogram of threshold values by method"
+    },
+    {
+      "name": "Ablation Metrics Summary",
+      "file": "ablation_metrics_summary.png",
+      "description": "Mean metrics comparison across all methods"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+dataset,f1,mcc,recall,precision,g_mean,retained_features,total_features
+ant-1.5,0.4070796460176991,0.3462807525183373,0.71875,0.2839506172839506,0.451762665758072,16,20

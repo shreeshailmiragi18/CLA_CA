@@ -1,0 +1,16 @@
+dataset,family,rows,features,defective_count,clean_count,prevalence,missing_values,duplicates,constant_features,label_column
+ant-1.5,PROMISE,293,21,32,261,0.1092,0,0,0,class
+arc,PROMISE,225,20,29,196,0.1289,14,0,0,class
+berek,PROMISE,43,23,16,27,0.3721,0,0,2,class
+camel-1.0,PROMISE,339,23,13,326,0.0383,0,0,2,class
+ivy-2.0,PROMISE,352,20,40,312,0.1136,7,0,0,class
+jedit-3.2,PROMISE,272,23,90,182,0.3309,0,0,2,class
+synapse-1.1,PROMISE,222,21,60,162,0.2703,0,0,0,class
+tomcat,PROMISE,858,23,77,781,0.0897,0,0,3,class
+xalan-2.4,PROMISE,723,23,110,613,0.1521,0,0,2,class
+xerces-1.2,PROMISE,440,23,71,369,0.1614,0,0,2,class
+EQ,PROMISE,324,61,129,195,0.3981,59,0,0,class
+JDT,PROMISE,997,61,206,791,0.2066,12,0,0,class
+LC,PROMISE,691,61,64,627,0.0926,6,3,0,class
+ML,PROMISE,1862,61,245,1617,0.1316,58,0,0,class
+PDE,PROMISE,1497,61,209,1288,0.1396,14,0,0,class

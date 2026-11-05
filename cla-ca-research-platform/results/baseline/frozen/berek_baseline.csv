@@ -1,0 +1,2 @@
+dataset,f1,mcc,recall,precision,g_mean,retained_features,total_features
+berek,0.875,0.8009259259259259,0.875,0.875,0.875,15,21

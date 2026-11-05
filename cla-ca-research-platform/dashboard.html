@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLA-CA Research Platform - Performance Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            color: #58a6ff;
+            margin-bottom: 10px;
+        }
+        .card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #30363d;
+        }
+        th {
+            background-color: #21262d;
+            color: #f0f6fc;
+        }
+        tr:hover {
+            background-color: #21262d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CLA-CA Software Defect Prediction Dashboard</h1>
+            <p>Evaluation of Unsupervised Clustering Assumption Method Across 15 Benchmarks</p>
+        </header>
+
+        <div class="card">
+            <h2>Performance Metrics by Dataset</h2>
+            <div class="chart-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Detailed Results Table</h2>
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Dataset</th>
+                        <th>Recall</th>
+                        <th>Precision</th>
+                        <th>F1-Score</th>
+                        <th>MCC</th>
+                        <th>G-mean</th>
+                        <th>Accuracy</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const rawData = [
+            {"Accuracy":0.587,"Dataset":"ant-1.5","F1":0.301,"G-mean":0.387,"MCC":0.232,"Precision":0.184,"Recall":0.813},
+            {"Accuracy":0.573,"Dataset":"arc","F1":0.294,"G-mean":0.359,"MCC":0.165,"Precision":0.187,"Recall":0.690},
+            {"Accuracy":0.837,"Dataset":"berek","F1":0.811,"G-mean":0.818,"MCC":0.692,"Precision":0.714,"Recall":0.938},
+            {"Accuracy":0.655,"Dataset":"camel-1.0","F1":0.146,"G-mean":0.249,"MCC":0.167,"Precision":0.081,"Recall":0.769},
+            {"Accuracy":0.622,"Dataset":"ivy-2.0","F1":0.296,"G-mean":0.363,"MCC":0.201,"Precision":0.188,"Recall":0.700},
+            {"Accuracy":0.743,"Dataset":"jedit-3.2","F1":0.646,"G-mean":0.649,"MCC":0.451,"Precision":0.593,"Recall":0.711},
+            {"Accuracy":0.577,"Dataset":"synapse-1.1","F1":0.420,"G-mean":0.435,"MCC":0.131,"Precision":0.333,"Recall":0.567},
+            {"Accuracy":0.628,"Dataset":"tomcat","F1":0.283,"G-mean":0.374,"MCC":0.247,"Precision":0.171,"Recall":0.818},
+            {"Accuracy":0.631,"Dataset":"xalan-2.4","F1":0.375,"G-mean":0.428,"MCC":0.247,"Precision":0.252,"Recall":0.727},
+            {"Accuracy":0.573,"Dataset":"xerces-1.2","F1":0.203,"G-mean":0.222,"MCC":-0.033,"Precision":0.145,"Recall":0.338},
+            {"Accuracy":0.744,"Dataset":"EQ","F1":0.713,"G-mean":0.717,"MCC":0.496,"Precision":0.644,"Recall":0.798},
+            {"Accuracy":0.645,"Dataset":"JDT","F1":0.488,"G-mean":0.534,"MCC":0.340,"Precision":0.348,"Recall":0.820},
+            {"Accuracy":0.601,"Dataset":"LC","F1":0.277,"G-mean":0.372,"MCC":0.236,"Precision":0.167,"Recall":0.828},
+            {"Accuracy":0.551,"Dataset":"ML","F1":0.264,"G-mean":0.321,"MCC":0.104,"Precision":0.168,"Recall":0.612},
+            {"Accuracy":0.578,"Dataset":"PDE","F1":0.322,"G-mean":0.386,"MCC":0.190,"Precision":0.208,"Recall":0.718}
+        ];
+
+        // Populate Table
+        const tbody = document.querySelector("#resultsTable tbody");
+        rawData.forEach(row => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td><strong>${row.Dataset}</strong></td>
+                <td>${row.Recall.toFixed(3)}</td>
+                <td>${row.Precision.toFixed(3)}</td>
+                <td>${row.F1.toFixed(3)}</td>
+                <td>${row.MCC.toFixed(3)}</td>
+                <td>${row.G_mean.toFixed(3)}</td>
+                <td>${row.Accuracy.toFixed(3)}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        // Render Chart
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: rawData.map(d => d.Dataset),
+                datasets: [
+                    {
+                        label: 'Recall',
+                        data: rawData.map(d => d.Recall),
+                        backgroundColor: 'rgba(88, 166, 255, 0.7)',
+                        borderColor: 'rgba(88, 166, 255, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'F1-Score',
+                        data: rawData.map(d => d.F1),
+                        backgroundColor: 'rgba(46, 160, 67, 0.7)',
+                        borderColor: 'rgba(46, 160, 67, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'MCC',
+                        data: rawData.map(d => d.MCC),
+                        backgroundColor: 'rgba(210, 153, 34, 0.7)',
+                        borderColor: 'rgba(210, 153, 34, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'G-mean',
+                        data: rawData.map(d => d.G_mean),
+                        backgroundColor: 'rgba(187, 134, 252, 0.7)',
+                        borderColor: 'rgba(187, 134, 252, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 1.0,
+                        grid: { color: '#30363d' },
+                        ticks: { color: '#c9d1d9' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#c9d1d9' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: '#c9d1d9' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

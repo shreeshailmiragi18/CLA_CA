@@ -1,0 +1,17 @@
+{
+  "protocol": "C",
+  "description": "Repeated random-split",
+  "n_splits": 10,
+  "test_fraction": 0.20,
+  "random_seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  "datasets": ["ant-1.5", "arc", "berek", "camel-1.0", "ivy-2.0", "jedit-3.2", "synapse-1.1", "tomcat", "xalan-2.4", "xerces-1.2", "EQ", "JDT", "LC", "ML", "PDE"],
+  "algorithm_defaults": {
+    "bim": {"PROMISE": 40, "AEEEM": 155},
+    "alpha": 0.8,
+    "normalization": "min-max"
+  },
+  "compare_against": "frozen_baseline",
+  "output_dir": "results/experiments/protocol_c",
+  "metrics": ["f1", "mcc", "recall", "precision", "g_mean", "accuracy", "fpr", "balanced_accuracy"],
+  "zero_denominator_policy": "return_0"
+}

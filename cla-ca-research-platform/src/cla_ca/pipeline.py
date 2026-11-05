@@ -19,18 +19,19 @@ def run_claca_pipeline(dataset_name: str, bim: int = None, alpha: float = 0.8) -
     X_df, y_true, is_aeeem = load_dataset(dataset_name)
 
     if bim is None:
-        bim = 150 if is_aeeem else 35
+        # Paper's best performance: bim=40 for PROMISE, bim=155 for AEEEM
+        bim = 155 if is_aeeem else 40
 
     feature_cols = list(X_df.columns)
     full_df = X_df.copy()
     full_df['target'] = y_true
 
-    # 1. Normalization & SetWeight
+    # 1. Normalization & SetWeight (Min-Max as per paper)
     df_norm = normalize_dataset(full_df, feature_cols)
     weights = set_weight(df_norm, feature_cols, alpha=alpha)
 
-    # 2. Discretization
-    df_disc = discretize_dataset(full_df, feature_cols, bim=bim)
+    # 2. Discretization (normalize data before discretization as per paper)
+    df_disc = discretize_dataset(df_norm, feature_cols, bim=bim)
 
     # 3. Feature Split (Createsplit)
     splist = []
