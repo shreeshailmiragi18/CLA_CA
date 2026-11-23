@@ -86,11 +86,8 @@ export default function App() {
         <div className="flex items-center space-x-3">
           <Activity className="w-8 h-8 text-blue-500 animate-pulse" />
           <h1 className="text-xl font-bold tracking-wide">
-            CLA-CA Research Platform
+            Software Defect Predection Using CLA-CA and Ensemble Learning
           </h1>
-        </div>
-        <div className="text-sm text-slate-400">
-          E13 Calibrated Ensemble Defect Prediction
         </div>
       </header>
 
@@ -146,7 +143,7 @@ export default function App() {
                 disabled={loading}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2 disabled:opacity-50"
               >
-                {loading ? "Running E13..." : "Run E13 Pipeline"}{" "}
+                {loading ? "Running..." : "Run Pipeline"}{" "}
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -336,7 +333,6 @@ export default function App() {
                     <tr className="border-b border-slate-700 text-slate-400 text-sm">
                       <th className="py-3 px-4">Module ID</th>
                       <th className="py-3 px-4">Score ($k_i$)</th>
-                      <th className="py-3 px-4">Actual Label</th>
                       <th className="py-3 px-4">Predicted Label</th>
                       <th className="py-3 px-4">Status</th>
                     </tr>
@@ -348,9 +344,9 @@ export default function App() {
                         <td className="py-3 px-4 font-mono">
                           {m.score.toFixed(3)}
                         </td>
-                        <td className="py-3 px-4">
+                        {/* <td className="py-3 px-4">
                           {m.actual === 1 ? "Defective" : "Clean"}
-                        </td>
+                        </td> */}
                         <td className="py-3 px-4">
                           {m.predicted === 1 ? "Defective" : "Clean"}
                         </td>
